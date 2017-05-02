@@ -1,11 +1,14 @@
 package view;
 
 import javax.swing.*;
-
 import util.Utility;
 
 public class PrincipalWindow extends JFrame implements Utility{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JDesktopPane desktopPane;
 	private PrincipalContent principalContent;
 

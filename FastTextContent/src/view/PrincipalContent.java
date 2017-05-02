@@ -1,22 +1,26 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.Color;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 import controller.DefaultController;
+import model.SearchResultContent;
 import util.Utility;
 
-public class PrincipalContent extends JPanel implements Utility, ActionListener, FocusListener, MouseListener{
+public class PrincipalContent extends JPanel implements Utility, ActionListener, FocusListener, MouseListener, KeyListener{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private JButton BtnSearch;
 	private JTextField JtfSearch;
-	private DefaultController controller;
+	private DefaultController Controller;
+	private JScrollPane JscpHTMLContent;
+	private List<SearchResultContent> resultList; 
 	
 	public PrincipalContent(){
 		init();
@@ -25,31 +29,50 @@ public class PrincipalContent extends JPanel implements Utility, ActionListener,
 	private void init(){
 		this.setLayout(null);
 		this.setSize(WIDTH_RESOLUTION, HEIGHT_RESOLUTION);
+		this.setBackground(Color.WHITE);
 		
 		BtnSearch = new JButton("Buscar");
 		BtnSearch.addActionListener(this);
+		BtnSearch.addKeyListener(this);
 		
 		JtfSearch = new JTextField();
 		JtfSearch.setText("Ingrese las palabras a buscar");
 		JtfSearch.addFocusListener(this);
 		JtfSearch.addMouseListener(this);
+		JtfSearch.addKeyListener(this);
 		
-		controller = new DefaultController();
+		Controller = new DefaultController();
+		
+		JscpHTMLContent = new JScrollPane();
+		JscpHTMLContent.setOpaque(false);
+		JscpHTMLContent.addMouseListener(this);
+		
+		resultList = new ArrayList<>();
 		
 		this.addMouseListener(this);
 		
+		this.add(JscpHTMLContent).setBounds(50, 100, 1250, 620);
 		this.add(BtnSearch).setBounds(1200, 50, 100, 30);
 		this.add(JtfSearch).setBounds(100, 50, 1000, 30);
+		repaint();
+	}
+	
+	private void searchAction(){
+		JscpHTMLContent.removeAll();
+		if(!JtfSearch.getText().equals("Ingrese las palabras a buscar") && !JtfSearch.getText().equals("")){
+			String wordList[] = JtfSearch.getText().split(" ");
+			for (int i = 0; i < wordList.length; i++) {
+				resultList.add(Controller.createSearchHistory(wordList[i], JscpHTMLContent));
+			}
+		}
+		repaint();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == BtnSearch){
-			if(!JtfSearch.getText().equals("Ingrese las palabras a buscar")){
-				String wordList[] = JtfSearch.getText().split(" ");
-				
-			}
-		}
+			searchAction();
+		}		
 	}
 
 	@Override
@@ -75,7 +98,7 @@ public class PrincipalContent extends JPanel implements Utility, ActionListener,
 				JtfSearch.setText("");
 			}
 		}
-		if(e.getSource() == this){
+		if(e.getSource() == this || e.getSource() == JscpHTMLContent){
 			if(JtfSearch.getText().equals("")){			
 				JtfSearch.setText("Ingrese las palabras a buscar");
 			}			
@@ -84,25 +107,38 @@ public class PrincipalContent extends JPanel implements Utility, ActionListener,
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			searchAction();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
 		
 	}
 }
