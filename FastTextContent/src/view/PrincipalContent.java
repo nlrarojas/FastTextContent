@@ -1,9 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import controller.DefaultController;
 import model.SearchResultContent;
@@ -20,6 +22,7 @@ public class PrincipalContent extends JPanel implements Utility, ActionListener,
 	private JTextField JtfSearch;
 	private DefaultController Controller;
 	private JScrollPane JscpHTMLContent;
+	private JPanel JpHTMLContent;
 	private List<SearchResultContent> resultList; 
 	
 	public PrincipalContent(){
@@ -43,29 +46,39 @@ public class PrincipalContent extends JPanel implements Utility, ActionListener,
 		
 		Controller = new DefaultController();
 		
+		JpHTMLContent = new JPanel();
+		JpHTMLContent.setBackground(Color.BLACK);
+		
 		JscpHTMLContent = new JScrollPane();
-		JscpHTMLContent.setOpaque(false);
+		JscpHTMLContent.setBounds(50, 100, 1250, 620);
+		JscpHTMLContent.setViewportView(JpHTMLContent);
 		JscpHTMLContent.addMouseListener(this);
 		
+		JpHTMLContent.setLayout(new BoxLayout(JpHTMLContent, BoxLayout.Y_AXIS));
+		JpHTMLContent.setPreferredSize(new Dimension(1250, 620));
+
 		resultList = new ArrayList<>();
 		
 		this.addMouseListener(this);
 		
-		this.add(JscpHTMLContent).setBounds(50, 100, 1250, 620);
+		this.add(JscpHTMLContent);
 		this.add(BtnSearch).setBounds(1200, 50, 100, 30);
-		this.add(JtfSearch).setBounds(100, 50, 1000, 30);
+		this.add(JtfSearch).setBounds(100, 50, 1000, 30);			
 		repaint();
+		revalidate();
+		JscpHTMLContent.revalidate();
+		JscpHTMLContent.repaint();
 	}
 	
 	private void searchAction(){
-		JscpHTMLContent.removeAll();
 		if(!JtfSearch.getText().equals("Ingrese las palabras a buscar") && !JtfSearch.getText().equals("")){
+			JscpHTMLContent.removeAll();
 			String wordList[] = JtfSearch.getText().split(" ");
 			for (int i = 0; i < wordList.length; i++) {
-				resultList.add(Controller.createSearchHistory(wordList[i], JscpHTMLContent));
+				resultList.add(Controller.createSearchHistory(wordList[i], JpHTMLContent));
+				JscpHTMLContent.setBorder(new LineBorder(Color.RED));
 			}
 		}
-		repaint();
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public class DefaultController{
 		
 	}
 
-	public SearchResultContent createSearchHistory (String keyWord, JScrollPane JscpHTMLContent){
+	public SearchResultContent createSearchHistory (String keyWord, JPanel JscpHTMLContent){
 		SearchResultContent SearchContent = null;
 		if(SearchHistory.getInstance().getRecord(keyWord) != null){
 			ExistingRecordSearch ExistingSearch = new ExistingRecordSearch(keyWord);
@@ -19,10 +19,11 @@ public class DefaultController{
 		}else{
 			NewSearch TemporalResult = new NewSearch(keyWord);
 			TemporalResult.start();
-			SearchContent = TemporalResult.getSearchContentPanel();
-			JscpHTMLContent.add(SearchContent);	
+			SearchContent = TemporalResult.getSearchContentPanel();				
 			SearchHistory.getInstance().storedSearchRecord(keyWord, SearchContent);
 		}
+		JscpHTMLContent.add(SearchContent);
+		
 		return SearchContent;
 	}
 }

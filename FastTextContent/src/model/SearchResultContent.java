@@ -34,7 +34,7 @@ public class SearchResultContent extends JPanel implements Observer{
 			timeLabel.setText("Tiempo de búsqueda: " + result.getTimeSearch());
 			
 			jfxPanel = new WebViewPanel(result.getHTMLText()); 
-			this.add(jfxPanel).setBounds(0, 40 , 1235, 350);
+			//this.add(jfxPanel).setBounds(0, 40 , 1235, 350);
 		}
 		if(arg0 instanceof ExistingResult){
 			ExistingResult result = (ExistingResult) arg0;
@@ -57,5 +57,13 @@ public class SearchResultContent extends JPanel implements Observer{
 
 	public void setTimeLabel(JLabel timeLabel) {
 		this.timeLabel = timeLabel;
+	}
+
+	public WebViewPanel getJfxPanel() {
+		return jfxPanel;
+	}
+
+	public void setJfxPanel(WebViewPanel jfxPanel) {
+		this.jfxPanel = jfxPanel;
 	}
 }

@@ -24,8 +24,7 @@ public class NewSearch extends Thread implements Utility{
 	private SearchResultContent SearchContentPanel;
 	private StringBuffer resultString;
 
-	public NewSearch(String pKeyWord) {
-		System.out.println("Testing 1 - Send Http GET request");
+	public NewSearch(String pKeyWord) {		
 		this.keyWord = pKeyWord;
 		semaphore = new Semaphore(1);
 		SearchContent = new SearchNewResult();
@@ -36,6 +35,7 @@ public class NewSearch extends Thread implements Utility{
 		try {
 			try {
 				semaphore.acquire();
+				System.out.println("Nueva búsqueda");
 				double startTime = System.nanoTime();
 				sendGet(keyWord);
 				double endTime = System.nanoTime();

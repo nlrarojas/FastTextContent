@@ -19,6 +19,7 @@ public class ExistingRecordSearch extends Thread{
 	public void run(){
 		try {
 			semaphore.acquire();
+			System.out.println("Búsqueda existente");
 			double startTime = System.nanoTime();
 			getExistingRecordSearch();			
 			double endTime = System.nanoTime();
@@ -33,8 +34,8 @@ public class ExistingRecordSearch extends Thread{
 		}
 	}
 	
-	public SearchResultContent getExistingRecordSearch(){
-		return SearchContentPanel = SearchHistory.getInstance().getRecord(keyWord);
+	public void getExistingRecordSearch(){
+		SearchContentPanel = SearchHistory.getInstance().getRecord(keyWord);
 	}
 
 	public SearchResultContent getSearchContentPanel() {

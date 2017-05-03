@@ -11,13 +11,14 @@ public class SearchHistory {
 	}
 	
 	public synchronized static SearchHistory getInstance(){
-		if(Instance == null)
+		if(Instance == null){
 			Instance = new SearchHistory();
+		}
 		return Instance;
 	}
 	
 	public SearchResultContent getRecord(String keyWord){
-		if(!searchRecord.containsKey(keyWord)){
+		if(searchRecord.containsKey(keyWord)){
 			return searchRecord.get(keyWord);
 		}
 		return null;
