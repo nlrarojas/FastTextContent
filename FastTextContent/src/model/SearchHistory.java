@@ -19,9 +19,9 @@ public class SearchHistory {
 		return Instance;
 	}
 	
-	public SearchContent getRecord(String keyWord){
-		if(searchRecord.containsKey(keyWord)){
-			return searchRecord.get(keyWord);
+	public SearchContent getRecord(String pKeyWord){
+		if(searchRecord.containsKey(pKeyWord)){
+			return searchRecord.get(pKeyWord);
 		}
 		return null;
 	}

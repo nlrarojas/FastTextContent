@@ -51,13 +51,5 @@ public class SearchContent extends JPanel implements Observer{
 			ExistingSearch Search = (ExistingSearch) arg0;
 			JLabelTimeRequired.setText("Tiempo de búsqueda: " + Search.getTimeRequired());
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "SearchContent [JLabelTimeRequired=" + JLabelTimeRequired.getText() + ", JLabelWordKey=" + JLabelWordKey.getText()
-				+ ", \nWebViewContent=" + WebViewContent + "]\n";
-	}
-	
-	
+	}	
 }

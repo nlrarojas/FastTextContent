@@ -37,7 +37,7 @@ public class NewSearchRecord extends Thread implements Utility{
 			try {
 				semaphore.acquire();
 				double startTime = System.nanoTime();
-				sendGet(keyWord);
+				sendGet();
 				double endTime = System.nanoTime();
 				requiredTime = (endTime - startTime) / 1000000;
 				
@@ -53,7 +53,7 @@ public class NewSearchRecord extends Thread implements Utility{
 		}
 	}
 	
-	public void sendGet (String keyWord) throws ClientProtocolException, IOException{
+	public void sendGet () throws ClientProtocolException, IOException{
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpGet request = new HttpGet(URL_ADRESS + keyWord);
 		request.addHeader("User-Agent", USER_AGENT);
